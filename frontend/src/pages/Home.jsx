@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import api from "../api";
 import Note from "../components/Note";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import "../styles/Home.css";
 
 function Home() {
@@ -18,7 +20,7 @@ function Home() {
             setNotes(res.data);
             console.log(res.data);
         } catch (err) {
-            alert("Failed to fetch notes: " + err);
+            toast.error("Failed to fetch notes: " + err);
         }
     };
 
@@ -26,13 +28,13 @@ function Home() {
         try {
             const res = await api.delete(`/api/notes/delete/${id}/`);
             if (res.status === 204) {
-                alert("Note deleted!");
+                toast.success("Note deleted!");
                 getNotes();
             } else {
-                alert("Failed to delete note.");
+                toast.error("Failed to delete note.");
             }
         } catch (error) {
-            alert("Failed to delete note: " + error);
+            toast.error("Failed to delete note: " + error);
         }
     };
 
@@ -41,22 +43,22 @@ function Home() {
         try {
             const res = await api.post("/api/notes/", { content, title });
             if (res.status === 201) {
-                alert("Note created!");
+                toast.success("Note created!");
                 setTitle("");
                 setContent("");
                 getNotes();
             } else {
-                alert("Failed to create note.");
+                toast.error("Failed to create note.");
             }
         } catch (err) {
-            alert("Failed to create note: " + err);
+            toast.error("Failed to create note: " + err);
         }
     };
 
     return (
         <div>
             <header>
-            <div><h1>Notes Management App</h1></div>
+                <div><h1>Notes Management App</h1></div>
             </header>
             <div className="main-container">
                 <div className="form-section">
@@ -92,6 +94,7 @@ function Home() {
                     ))}
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 }

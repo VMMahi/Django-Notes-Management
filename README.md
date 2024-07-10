@@ -4,6 +4,6 @@ Steps to run the backend:<br />
 
 Steps to run the frontend:<br />
 1. cd into the frontend folder.<br />
-2. run command "npm start".<br />
+2. run command "npm run dev".<br />
 3. you'll get the url in the terminal.<br />
 4. Ctrl+click on the url to open the server on  the browser.<br />
